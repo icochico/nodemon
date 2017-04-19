@@ -30,5 +30,5 @@ Without make:
 <b>Run</b>
 
 ```Usage:
-  anglova [command]
+  nodemon (starts the server)
 ```
