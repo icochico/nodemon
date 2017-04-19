@@ -1,4 +1,4 @@
-# nodemon
+# NodeMon
 An aggregation server for statistics and sensor data
 ```
                    _
