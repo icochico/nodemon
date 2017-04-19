@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package disservice;
+
+option go_package = "disservice";
+option java_package = "us.ihmc.ddam.nodemon";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "DisService";
+
+// all keys are lowercase, words separated by _
+enum Str {
+    sensor_ip = 0; //the ip of the sensor
+    peer_id = 1; //the id of the peer
+    remote_peer_id = 2; //the id of the remote peer
+}
+
+enum Int {
+    data_message_received = 0;
+    data_bytes_received = 1;
+    data_fragments_received = 2;
+    data_fragment_bytes_received = 3;
+    missing_fragment_request_messages_sent = 4;
+    missing_fragment_request_bytes_sent = 5;
+    missing_fragment_request_messages_received = 6;
+    missing_fragment_request_bytes_received = 7;
+    data_cache_query_messages_sent = 8;
+    data_cache_query_bytes_sent = 9;
+    data_cache_query_mssages_received = 10;
+    data_cache_query_bytes_received = 11;
+    targeted_duplicate_traffic = 12;
+    topology_state_messages_sent = 13;
+    topology_state_bytes_sent = 14;
+    topology_state_messages_received = 15;
+    topology_state_bytes_received = 16;
+    keep_alive_messages_sent = 17;
+    keep_alive_messages_received = 18;
+    query_messages_sent = 19;
+    query_messages_received = 20;
+    query_hits_messages_sent = 21;
+    query_hits_messages_received = 22;
+    client_messages_pushed = 23;
+    client_bytes_pushed = 24;
+    client_messages_made_available = 25;
+    client_bytes_made_available = 26;
+    fragments_pushed = 27;
+    fragment_bytes_pushed = 28;
+    on_demand_fragments_sent = 29;
+    on_demand_fragment_bytes_sent = 30;
+    overheard_duplicate_traffic = 31;
+}

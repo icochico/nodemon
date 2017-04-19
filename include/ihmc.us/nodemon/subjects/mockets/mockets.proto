@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package mockets;
+
+option go_package = "mockets";
+option java_package = "us.ihmc.ddam.nodemon";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "Mockets";
+
+// all keys are lowercase, words separated by _
+enum Str {
+    sensor_ip = 0; //the ip of the sensor
+    src_ip = 1; // Ip of the source of this traffic
+    dest_ip = 2; // Ip of the destination of this traffic
+    src_port = 3; // Source port of this traffic
+    dest_port = 4; // Destination port of this traffic
+    pid = 5; // Process id
+    identifier = 6; // Identifier of this traffic
+}
+
+enum Int {
+    last_contact_time = 0;
+    sent_bytes = 1;
+    sent_packets = 2;
+    retransmits = 3;
+    received_bytes = 4;
+    received_packets = 5;
+    duplicated_discarded_packets = 6;
+    no_room_discarded_packets = 7;
+    reassembly_skipped_discarded_packets = 8;
+    unacknowledged_data_size = 9;
+    unacknowledged_queue_size = 10;
+    pending_data_size = 11;
+    pending_packet_queue_size = 12;
+    reliable_sequenced_data_size = 13;
+    reliable_sequenced_packet_queue_size = 14;
+    reliable_unsequenced_data_size = 15;
+    reliable_unsequenced_packet_queue_size = 16;
+}
+
+enum Double {
+    estimated_rtt = 0;
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package network;
+
+option go_package = "network";
+option java_package = "us.ihmc.ddam.nodemon";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "Network";
+
+//Information about the network, all keys are lowercase, words separated by _
+enum Str {
+    sensor_ip = 0; // Ip of the sensor
+    network_ip = 1; // Subnet Ip
+    netmask = 2; // Subnetmask
+    type = 3; // class can be 'internal', 'external' or '' if unspecified
+}

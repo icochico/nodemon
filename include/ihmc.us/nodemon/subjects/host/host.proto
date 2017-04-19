@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package host;
+
+option go_package = "host";
+option java_package = "us.ihmc.ddam.nodemon";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "Host";
+
+// all keys are lowercase, words separated by _
+enum Str {
+    sensor_ip = 0; // Ip address of the sensor
+    host_ip = 1; // Ip address of the host
+    mac = 2; // Mac address of the host
+    network_ip = 3; // Subnet Ip
+    netmask = 4; // Netmask associated with this host
+    type = 5; // Can be 'netproxy', 'gateway' or '' if unspecified
+}

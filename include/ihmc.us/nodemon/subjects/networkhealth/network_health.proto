@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package nh;
+
+option go_package = "networkhealth";
+option java_package = "us.ihmc.ddam";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "NetworkHealth";
+
+//Information about the network, all keys are lowercase, words separated by _
+enum Str {
+    network_name	   = 0; // Ip of the Subnet / Node Name
+	network_ip 	   = 1; // Subnet Ip
+	netmask = 2; // subnet netmask
+	host_ip	       = 3; // Ip address of the host in the subnet
+}
+
+enum Double {
+    lat 				= 0; // Latitude
+    lon 				= 1; // Longitude
+	interconnected_p 	= 2; // Probability that couples of nodes are connected
+	backhaul_p 			= 3; // Probability that a node is connected to the backhaul
+	delay 				= 4; // Rtt in the subnet
+	saturation 			= 5; // Link to backhaul supposed saturation percentage
+	total_bw_est		= 6; // Total estimated bw
+	within_bw_est		= 7; // Estimated subnet bw
+}

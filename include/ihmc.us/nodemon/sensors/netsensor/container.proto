@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package netsensor;
+
+import "google/protobuf/timestamp.proto";
+import "traffic.proto";
+import "topology.proto";
+import "netproxyinfo.proto";
+import "datatype.proto";
+
+option go_package = "netsensor";
+option java_package = "us.ihmc.ddam.sensors.netsensor";
+option java_generate_equals_and_hash = true;
+option java_multiple_files = true;
+option java_outer_classname = "NetSensorContainerProto";
+
+message NetSensorContainer {
+    DataType dataType = 1; //the data type of this message (TRAFFIC or TOPOLOGY or NETPROXY)
+    repeated TrafficByInterface trafficByInterfaces = 2; //Traffic Information
+    repeated Topology topologies = 3; //Topology Information
+    NetProxyInfo netProxyInfo = 4; //NetProxy Information
+    google.protobuf.Timestamp timestamp = 5; //Time this object was created
+}
