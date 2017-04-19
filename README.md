@@ -8,7 +8,8 @@ An aggregation server for statistics and sensor data
 |_| |_| \___/  \__,_| \___||_| |_| |_| \___/ |_| |_|
 ```
 
-<b>NodeMon</b> is a server application that collects, shapes and aggregates data from local sensors. NodeMon uses NATS (http://nats.io/) to distribute to potential clients along the network.
+<b>NodeMon</b> is an aggregation server that collects, shapes and distributes data from local sensors. 
+NodeMon uses NATS (http://nats.io/) to distribute the aggregated data to potential clients along the network.
 
 <b>Dependencies</b>
 
