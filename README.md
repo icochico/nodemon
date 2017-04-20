@@ -1,5 +1,5 @@
 # NodeMon
-An aggregation server for statistics and sensor data
+A sensor fusion service for statistics and sensor data
 ```
                    _
  _ __    ___    __| |  ___  _ __ ___    ___   _ __
@@ -8,7 +8,7 @@ An aggregation server for statistics and sensor data
 |_| |_| \___/  \__,_| \___||_| |_| |_| \___/ |_| |_|
 ```
 
-<b>NodeMon</b> is an aggregation server that collects, shapes and distributes data from local sensors. 
+<b>NodeMon</b> is a sensor fusion service that collects, shapes and distributes data from local sensors. 
 NodeMon uses NATS (http://nats.io/) to distribute the aggregated data to potential clients along the network.
 
 <b>Dependencies</b>
