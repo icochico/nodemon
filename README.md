@@ -1,5 +1,5 @@
 # NodeMon
-A sensor collection and fusion service for IoT
+A sensor data collector and fusion service for IoT
 ```
                    _
  _ __    ___    __| |  ___  _ __ ___    ___   _ __
