@@ -8,7 +8,7 @@ A sensor fusion service for statistics and sensor data
 |_| |_| \___/  \__,_| \___||_| |_| |_| \___/ |_| |_|
 ```
 
-<b>NodeMon</b> is a sensor fusion service that collects, shapes and distributes data from local sensors. 
+<b>NodeMon</b> is a sensor fusion service that collects, shapes and distributes data from local sensors.<br/>
 NodeMon uses NATS (http://nats.io/) to distribute the aggregated data to potential clients along the network.
 
 <b>Dependencies</b>
@@ -20,12 +20,16 @@ GNU make (suggested) https://www.gnu.org/software/make/<br/>
 
 With GNU make:
 
-```make```
+```
+make
+```
 
 Without make:
 
-```go get ihmc.us/nodemon``` <br/>
-```go install ihmc.us/nodemon``` <br/>
+```
+go get ihmc.us/nodemon
+go install ihmc.us/nodemon
+```
 
 <b>Run</b>
 

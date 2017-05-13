@@ -9,13 +9,14 @@ option java_multiple_files = true;
 option java_outer_classname = "SubjectProto";
 
 enum Subject {
-	host 	       = 0;
-    network        = 1;
-    traffic        = 2;
-    cpu 	       = 3;
-    memory         = 4;
-    os 		       = 5;
-	network_health = 6;
-    disservice     = 7;
-    mockets        = 8;
+	host 	       		= 0;
+    network        		= 1;
+    traffic        		= 2;
+    cpu 	       		= 3;
+    memory         		= 4;
+    os 		       		= 5;
+	network_health 		= 6;
+    disservice     		= 7;
+    mockets        		= 8;
+	link_description 	= 9;
 }

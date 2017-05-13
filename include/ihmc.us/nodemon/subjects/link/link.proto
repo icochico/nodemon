@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package link;
+
+option go_package = "link";
+option java_package = "us.ihmc.ddam.measure";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "Link";
+
+//Information about the link, all keys are lowercase, words separated by _
+enum Str {
+    network_ip = 0;           // Ip of the observed network
+    src_ip = 1;               // Source Ip
+    dst_ip = 2;               // Destination Ip
+    link_type = 3;            // Name of the type of the link
+}
+
+enum Double {
+    bandwidth = 0;            // Total bandwidth on the link
+    latency = 1;              // Average latency on the link
+}
