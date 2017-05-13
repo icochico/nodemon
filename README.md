@@ -14,6 +14,7 @@ NodeMon uses NATS (http://nats.io/) to distribute the aggregated data to potenti
 <b>Dependencies</b>
 
 Go (>= 1.8) https://golang.org/dl/<br/>
+gNATSd (>= 0.9.6) http://nats.io/download/nats-io/gnatsd/<br />
 GNU make (suggested) https://www.gnu.org/software/make/<br/>
 
 <b>Build</b>
@@ -21,18 +22,30 @@ GNU make (suggested) https://www.gnu.org/software/make/<br/>
 With GNU make:
 
 ```
+cd nodemon
 make
 ```
 
 Without make:
 
 ```
+cd nodemon
 go get ihmc.us/nodemon
 go install ihmc.us/nodemon
 ```
 
 <b>Run</b>
 
-```Usage:
-  nodemon (starts the server)
+Run gNATSd (NATS Server):
+
+Unzip in a directory and launch:
 ```
+  gnatsd (starts the NATS server)
+```
+
+Run NodeMon:
+```
+  nodemon (starts the NodeMon service)
+```
+
+
