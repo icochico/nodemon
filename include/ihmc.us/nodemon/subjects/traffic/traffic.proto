@@ -3,7 +3,7 @@ syntax = "proto3";
 package traffic;
 
 option go_package = "traffic";
-option java_package = "us.ihmc.ddam.nodemon";
+option java_package = "us.ihmc.nodemon.subjects.traffic";
 option java_generate_equals_and_hash = true;
 option java_outer_classname = "Traffic";
 

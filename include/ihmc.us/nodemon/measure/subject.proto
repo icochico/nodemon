@@ -19,4 +19,7 @@ enum Subject {
     disservice     		= 7;
     mockets        		= 8;
 	link_description 	= 9;
+	netviewer_request 	= 10;
+    geolocation         = 11;
+    battery             = 12;
 }

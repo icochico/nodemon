@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package geolocation;
+
+option go_package = "geolocation";
+option java_package = "us.ihmc.nodemon.subjects.geolocation";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "GeoLocation";
+
+// all keys are lowercase, words separated by _
+enum Str {
+    sensor_ip = 0; //the ip of the sensor
+}
+
+enum Double {
+    latitude = 0;
+    longitude = 1;
+    altitude = 2;
+}

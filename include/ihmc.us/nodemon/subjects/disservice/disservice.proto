@@ -3,7 +3,7 @@ syntax = "proto3";
 package disservice;
 
 option go_package = "disservice";
-option java_package = "us.ihmc.ddam.nodemon";
+option java_package = "us.ihmc.nodemon.subjects.disservice";
 option java_generate_equals_and_hash = true;
 option java_outer_classname = "DisService";
 

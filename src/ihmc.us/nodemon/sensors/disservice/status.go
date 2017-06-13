@@ -3,8 +3,8 @@ package disservice
 //Constants fort DisServiceStatus
 const (
 	DIS_SERVICE_STATUS_HEADER_BYTE int = 0x00D1
-	DefaultPort                    int = 2400
-	UDPPacketMaxSize	       int = 2048
+	DefaultPort                        = 2400
+	UDPPacketMaxSize               int = 2048
 )
 
 //enum for StatusNoticeType

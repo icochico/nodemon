@@ -3,7 +3,7 @@ syntax = "proto3";
 package mockets;
 
 option go_package = "mockets";
-option java_package = "us.ihmc.ddam.nodemon";
+option java_package = "us.ihmc.nodemon.subjects.mockets";
 option java_generate_equals_and_hash = true;
 option java_outer_classname = "Mockets";
 

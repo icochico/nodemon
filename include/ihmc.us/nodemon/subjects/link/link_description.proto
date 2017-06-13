@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package linkDescription;
+
+option go_package = "linkDescription";
+option java_package = "us.ihmc.nodemon.subjects.link";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "LinkDescription";
+
+enum Str 
+{
+    local_subnet_addr 		= 0;
+	local_subnet_netmask 	= 1;
+	remote_subnet_addr 		= 2;
+	remote_subnet_netmask 	= 3;
+	link_type 				= 4;
+}
+
+enum Double 
+{
+    estimated_bw 		= 0;
+	estimated_pl 		= 1;
+	estimated_latency 	= 2;
+}

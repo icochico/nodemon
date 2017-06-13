@@ -17,13 +17,7 @@ import (
 )
 
 // values for type
-const (
-	HostTypeDefault     = ""
-	HostTypeNetProxy    = "netproxy"
-	HostTypeGateway     = "gateway"
-	NetworkTypeInternal = "internal"
-	NetworkTypeExternal = "external"
-)
+const ()
 
 type NetSensor struct {
 	port     uint16                  // the port of the sensor
@@ -104,6 +98,10 @@ func (ns *NetSensor) parsePacket(nsc *netsensor.NetSensorContainer) {
 	switch nsc.DataType {
 	case netsensor.DataType_TRAFFIC:
 		for _, tbi := range nsc.GetTrafficByInterfaces() {
+
+			//current sensor ip is represented in monitoring interface (NetSensor)
+			sensorIp := tbi.GetMonitoringInterface()
+
 			for _, flow := range tbi.GetMicroflows() {
 				//fetch src and dest host for this Flow
 				srcIP := util.UInt32ToIP(flow.GetIpSrc()).String()
@@ -125,6 +123,7 @@ func (ns *NetSensor) parsePacket(nsc *netsensor.NetSensorContainer) {
 						Doubles:   make(map[string]float64),
 						Timestamp: nsc.GetTimestamp(),
 					}
+					m.GetStrings()[traffic.Str_sensor_ip.String()] = sensorIp
 					m.GetStrings()[traffic.Str_src_ip.String()] = srcIP
 					m.GetStrings()[traffic.Str_dest_ip.String()] = destIP
 					m.GetStrings()[traffic.Str_src_port.String()] = strconv.Itoa(int(srcPort))
@@ -204,7 +203,7 @@ func (ns *NetSensor) parsePacket(nsc *netsensor.NetSensorContainer) {
 
 			for _, internal := range topo.GetInternals() {
 				mHost := hostToMeasure(ni, internal, nsc.Timestamp,
-					HostTypeDefault)
+					netsensor.HostTypeDefault)
 				//send host information
 				err := ns.sendTo(ns.host, mHost)
 				if err == nil {
@@ -215,7 +214,7 @@ func (ns *NetSensor) parsePacket(nsc *netsensor.NetSensorContainer) {
 			for _, localGw := range topo.GetLocalGws() {
 
 				mLocalGw := hostToMeasure(ni, localGw, nsc.Timestamp,
-					HostTypeGateway)
+					netsensor.HostTypeGateway)
 				//send host information
 				err := ns.sendTo(ns.host, mLocalGw)
 				if err == nil {
@@ -227,11 +226,16 @@ func (ns *NetSensor) parsePacket(nsc *netsensor.NetSensorContainer) {
 	case netsensor.DataType_NETPROXY:
 		npi := nsc.GetNetProxyInfo()
 		if npi == nil {
-			log.Error(ns.TAG() + "parsePacket(): NetProxyInfo is null")
+			log.Error(ns.TAG() + "parsePacket(): NetProxyInfo is null, skipping")
 			return
 		}
 
-		mInternal := networkInfoToMeasure(npi.GetInternal(), nsc.GetTimestamp(), NetworkTypeInternal)
+		if npi.GetInternal() == nil {
+			log.Warn(ns.TAG() + " parsePacket(): NetProxyInfo internal is null, skipping")
+			return
+
+		}
+		mInternal := networkInfoToMeasure(npi.GetInternal(), nsc.GetTimestamp(), netsensor.NetworkTypeInternal)
 		err := ns.sendTo(ns.network, mInternal)
 		if ns.logDebug {
 			log.Debug(ns.TAG() + "Measure: " + mInternal.String())
@@ -240,7 +244,11 @@ func (ns *NetSensor) parsePacket(nsc *netsensor.NetSensorContainer) {
 			countNetwork++
 		}
 
-		mExternal := networkInfoToMeasure(npi.GetExternal(), nsc.GetTimestamp(), NetworkTypeExternal)
+		if npi.GetExternal() == nil {
+			log.Warn(ns.TAG() + " parsePacket(): NetProxyInfo external is null, skipping")
+			return
+		}
+		mExternal := networkInfoToMeasure(npi.GetExternal(), nsc.GetTimestamp(), netsensor.NetworkTypeExternal)
 		if ns.logDebug {
 			log.Debug(ns.TAG() + "Measure: " + mExternal.String())
 		}
@@ -258,8 +266,9 @@ func (ns *NetSensor) parsePacket(nsc *netsensor.NetSensorContainer) {
 				Doubles:   make(map[string]float64),
 				Timestamp: nsc.GetTimestamp(),
 			}
+			mHost.GetStrings()[host.Str_sensor_ip.String()] = util.UInt32ToIP(npi.GetExternal().InterfaceIp).String()
 			mHost.GetStrings()[host.Str_host_ip.String()] = util.UInt32ToIP(rNetProxyIP).String()
-			mHost.GetStrings()[host.Str_type.String()] = HostTypeNetProxy
+			mHost.GetStrings()[host.Str_type.String()] = netsensor.HostTypeNetProxy
 			if ns.logDebug {
 				log.Debug(ns.TAG() + "Measure: " + mHost.String())
 			}

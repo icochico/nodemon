@@ -3,7 +3,7 @@ syntax = "proto3";
 package host;
 
 option go_package = "host";
-option java_package = "us.ihmc.ddam.nodemon";
+option java_package = "us.ihmc.nodemon.subjects.host";
 option java_generate_equals_and_hash = true;
 option java_outer_classname = "Host";
 

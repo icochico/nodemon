@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package cpu;
+
+option go_package = "cpu";
+option java_package = "us.ihmc.nodemon.subjects.cpu";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "CPU";
+
+enum Str {
+    sensor_ip = 0;
+}
+
+enum Int {
+    total = 0;
+    user = 1;
+    nice = 2;
+    sys = 3;
+    idle = 4;
+    wait = 5;
+    irq = 6;
+    softirq = 7;
+    stolen = 8;
+}

@@ -10,7 +10,7 @@ NATS_URL=https://github.com/nats-io/gnatsd/releases/download/v0.9.6/gnatsd-v0.9.
 GO_URL=https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
 
 # These are the values we want to pass for Version, BuildTime, and GitHash
-VERSION=1.0.0
+VERSION=1.0.1
 BUILD_TIME=`date +%FT%T%z`
 GIT_HASH=`git rev-parse HEAD`
 

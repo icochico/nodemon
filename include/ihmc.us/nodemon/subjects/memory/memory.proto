@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package memory;
+
+option go_package = "memory";
+option java_package = "us.ihmc.nodemon.subjects.memory";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "Memory";
+
+enum Str {
+    sensor_ip = 0;
+}
+
+enum Int {
+    total = 0;
+    used = 1;
+    free = 2;
+    actual_free = 3;
+    actual_used = 4;
+}

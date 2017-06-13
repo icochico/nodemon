@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "subject.proto";
 
 option go_package = "measure";
-option java_package = "us.ihmc.ddam.nodemon.measure";
+option java_package = "us.ihmc.nodemon.measure";
 option java_generate_equals_and_hash = true;
 option java_multiple_files = true;
 option java_outer_classname = "MeasureProto";

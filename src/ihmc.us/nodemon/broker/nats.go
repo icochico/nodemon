@@ -11,10 +11,11 @@ import (
 )
 
 const (
-	TAG         = "NATS"
-	NATSSchema  = "nats://"
-	NATSPort    = 4222
-	DefaultHost = "localhost"
+	TAG           = "NATS"
+	NATSSchema    = "nats://"
+	DefaultPort   = 4222
+	DefaultHost   = "localhost"
+	ReconnectTime = 3000 //msec
 )
 
 type NATS struct {
@@ -28,18 +29,8 @@ type NATS struct {
 	quit     chan bool
 }
 
-func NewNATS(port uint16, traffic, host, network, mockets <-chan *measure.Measure, logDebug bool) (*NATS, error) {
-
-	url := NATSSchema + DefaultHost + ":" + strconv.Itoa(int(port))
-	log.Info(getTAG() + "Attempting connection to:" + url)
-	nc, err := nats.Connect(url)
-	if err != nil {
-		return nil, err
-	}
-	log.Info(getTAG() + "Connection successful to: " + nc.ConnectedUrl())
-
+func NewNATS(port uint16, traffic, host, network, mockets <-chan *measure.Measure, logDebug bool) (*NATS) {
 	return &NATS{
-		conn:     nc,
 		port:     port,
 		traffic:  traffic,
 		host:     host,
@@ -47,11 +38,28 @@ func NewNATS(port uint16, traffic, host, network, mockets <-chan *measure.Measur
 		mockets:  mockets,
 		logDebug: logDebug,
 		quit:     make(chan bool),
-	}, nil
+	}
 }
 
 func (n *NATS) Start() {
-	go n.handlePub()
+
+	go func() {
+		url := NATSSchema + DefaultHost + ":" + strconv.Itoa(int(n.port))
+		log.Info(getTAG() + "Attempting connection to:" + url)
+
+		conn, err := nats.Connect(url)
+		for err != nil {
+			log.Warn(getTAG() + err.Error())
+			time.Sleep(ReconnectTime * time.Millisecond)
+			conn, err = nats.Connect(url)
+		}
+
+		log.Info(getTAG() + "Connection successful to: " + conn.ConnectedUrl())
+		// assign conn object
+		n.conn = conn
+		go n.handlePub()
+	}()
+
 }
 
 func (n *NATS) handlePub() {

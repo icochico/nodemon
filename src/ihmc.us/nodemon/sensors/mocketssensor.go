@@ -400,7 +400,7 @@ func toMeasure(sensorIP net.IP, epi *mockets.EndPointsInfo, si *mockets.Statisti
 	m.GetStrings()[subjmockets.Str_pid.String()] = strconv.Itoa(int(epi.PID))
 	m.GetStrings()[subjmockets.Str_identifier.String()] = epi.Identifier
 	m.GetStrings()[subjmockets.Str_sensor_ip.String()] = sensorIP.String() // duplicated
-	m.GetStrings()[subjmockets.Str_src_ip.String()] = sensorIP.String()
+	m.GetStrings()[subjmockets.Str_src_ip.String()] = util.UInt32ToIP(uint32(epi.LocalAddr)).String()
 	m.GetStrings()[subjmockets.Str_src_port.String()] = strconv.Itoa(int(epi.LocalPort))
 	m.GetStrings()[subjmockets.Str_dest_ip.String()] = util.UInt32ToIP(uint32(epi.RemoteAddr)).String()
 	m.GetStrings()[subjmockets.Str_dest_port.String()] = strconv.Itoa(int(epi.RemotePort))

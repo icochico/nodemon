@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package geolocation;
+
+option go_package = "battery";
+option java_package = "us.ihmc.nodemon.subjects.battery";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "Battery";
+
+// all keys are lowercase, words separated by _
+enum Str {
+    sensor_ip = 0; //the ip of the sensor
+}
+
+enum Double {
+    charge_percent = 0; //the current percentage of battery life of the device
+}
