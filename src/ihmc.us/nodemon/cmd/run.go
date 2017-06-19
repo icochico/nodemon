@@ -18,6 +18,7 @@ const (
 	HostChanSize       = 1000
 	NetworkChanSize    = 1000
 	MocketsChanSize    = 1000
+	DisServiceChanSize = 1000
 )
 
 func init() {
@@ -25,25 +26,27 @@ func init() {
 }
 
 type NodeMon struct {
-	cpu     chan *measure.Measure // channel for CPU related measures
-	memory  chan *measure.Measure // channel for memory related  measures
-	traffic chan *measure.Measure // channel for traffic measures
-	host    chan *measure.Measure // channel for host related information measures
-	network chan *measure.Measure // channel for network related information measures
-	mockets chan *measure.Measure // channel for Mockets related information measures
-	stats   chan int              // channel for NodeMon related statistics
-	quit    chan bool
+	cpu        chan *measure.Measure // channel for CPU related measures
+	memory     chan *measure.Measure // channel for memory related  measures
+	traffic    chan *measure.Measure // channel for traffic measures
+	host       chan *measure.Measure // channel for host related information measures
+	network    chan *measure.Measure // channel for network related information measures
+	mockets    chan *measure.Measure // channel for Mockets related information measures
+	disservice chan *measure.Measure // channel for DisService related information measures
+	stats      chan int              // channel for NodeMon related statistics
+	quit       chan bool
 }
 
 func NewNodeMon() *NodeMon {
 	return &NodeMon{
-		cpu:     make(chan *measure.Measure, CPUChanSize),
-		memory:  make(chan *measure.Measure, MemoryChanSize),
-		traffic: make(chan *measure.Measure, TrafficChanMaxSize),
-		host:    make(chan *measure.Measure, HostChanSize),
-		network: make(chan *measure.Measure, NetworkChanSize),
-		mockets: make(chan *measure.Measure, MocketsChanSize),
-		quit:    make(chan bool),
+		cpu:        make(chan *measure.Measure, CPUChanSize),
+		memory:     make(chan *measure.Measure, MemoryChanSize),
+		traffic:    make(chan *measure.Measure, TrafficChanMaxSize),
+		host:       make(chan *measure.Measure, HostChanSize),
+		network:    make(chan *measure.Measure, NetworkChanSize),
+		mockets:    make(chan *measure.Measure, MocketsChanSize),
+		disservice: make(chan *measure.Measure, DisServiceChanSize),
+		quit:       make(chan bool),
 	}
 }
 
@@ -77,14 +80,15 @@ var runCmd = &cobra.Command{
 		// SystemSensor
 		ss := sensors.NewSystemSensor(n.cpu, n.memory, false)
 		ss.Start()
-
 		// NetSensor
 		ns := sensors.NewNetSensor(cfg.NetSensorPort, n.traffic, n.host, n.network, cfg.NetSensorLogDebug)
 		ns.Start()
-
 		//MocketsSensor
-		ms := sensors.NewMocketSensor(cfg.MocketsSensorPort, n.mockets, cfg.NetSensorLogDebug)
+		ms := sensors.NewMocketSensor(cfg.MocketsSensorPort, n.mockets, cfg.MocketsLogDebug)
 		ms.Start()
+		//DisServiceSensor
+		ds := sensors.NewDisServiceSensor(cfg.DisServiceSensorPort, n.mockets, cfg.DisServiceLogDebug)
+		ds.Start()
 		log.Info(getTAG() + "Waiting for packets...")
 
 		for {
