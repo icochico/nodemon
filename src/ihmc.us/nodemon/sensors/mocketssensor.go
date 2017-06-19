@@ -274,7 +274,7 @@ func (ms *MocketsSensor) parsePacket(sensorIP net.IP, buf []byte) {
 		si.ReliableUnsequencedPacketQueueSize = int64(reliableUnsequencedPacketQueueSize)
 
 		// sending measure back
-		m := toMeasure(sensorIP, epi, si)
+		m := toMocketsMeasure(sensorIP, epi, si)
 		if ms.logDebug {
 			log.Debug(ms.TAG(), "Measure: ", m.String())
 		}
@@ -386,7 +386,7 @@ func (ms *MocketsSensor) parsePacket(sensorIP net.IP, buf []byte) {
 	}
 }
 
-func toMeasure(sensorIP net.IP, epi *mockets.EndPointsInfo, si *mockets.StatisticsInfo) *measure.Measure {
+func toMocketsMeasure(sensorIP net.IP, epi *mockets.EndPointsInfo, si *mockets.StatisticsInfo) *measure.Measure {
 
 	m := &measure.Measure{
 		Subject:   measure.Subject_mockets,
