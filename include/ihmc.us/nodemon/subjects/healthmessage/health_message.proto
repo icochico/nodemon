@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package healthmessage;
+
+option go_package = "healthmessage";
+option java_package = "us.ihmc.nodemon.subjects.healthmessage";
+option java_generate_equals_and_hash = true;
+option java_outer_classname = "HealthMessage";
+
+//Information about the network, all keys are lowercase, words separated by _
+enum Str {
+    collector           = 0; // Name of the software collecting and reporting network statistics
+	network_ip          = 1; // Subnet Ip
+	netmask             = 2; // subnet netmask
+	host_ip	            = 3; // Ip address of the host in the subnet
+}
+
+enum Double {
+    version             = 0; // Version of the collector reporting this network health summary
+    lat 				= 1; // Latitude
+    lon 				= 2; // Longitude
+	interconnected_p 	= 3; // Probability that couples of nodes are connected
+	backhaul_p 			= 4; // Probability that a node is connected to the backhaul
+	delay 				= 5; // Rtt in the subnet
+	saturation 			= 6; // Link to backhaul supposed saturation percentage
+	total_bw_est		= 7; // Total estimated bw
+	within_bw_est		= 8; // Estimated subnet bw
+}
